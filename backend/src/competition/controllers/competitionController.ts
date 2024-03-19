@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { v4 as uuidv4 } from 'uuid';
 import { withHandleError } from "../../common/controllers/controllerErrorHandler";
 import { TOKE_SEED } from "../../config";
 import { sentences } from "../sentence";
@@ -9,7 +10,7 @@ export default withHandleError({
     if (!name) {
       throw new Error("invalid data: name");
     }
-    const token = jwt.sign({ username: name }, TOKE_SEED);
+    const token = jwt.sign({ username: name, sub: uuidv4() }, TOKE_SEED);
     res.send({ token });
   },
   randomSentence: (req, res) => {
