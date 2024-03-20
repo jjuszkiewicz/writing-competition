@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
+import cors from "cors";
 import competitionRouter from "./competition/routers/competitionRouter";
 import { TOKE_SEED } from "./config";
 import competitionController from "./competition/controllers/competitionController";
@@ -15,6 +16,8 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
     }
 
     jwt.verify(token, TOKE_SEED);
+    const tokenDecoded = jwt.decode(token);
+    res.locals.userUuid = tokenDecoded!.sub;
     next();
   } catch (e) {
     res.status(401).send("invalid token ");
@@ -22,6 +25,7 @@ const auth = (req: Request, res: Response, next: NextFunction) => {
 };
 
 app.use(bodyParser.json());
+app.use(cors())
 
 app.get("/", (req, res) => {
   res.send("welcome");

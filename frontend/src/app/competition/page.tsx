@@ -4,14 +4,12 @@ import { cookies } from "next/headers";
 import styles from "./competition.module.scss";
 import { fetchClient } from "@/clientAPI/fetchClient";
 import { AnswerForm } from "@/competition/components/AnswerForm";
+import { Round } from "@/competition/types";
 
 export default async function Competition() {
-  const { sentence } = await fetchClient<{ sentence: string }>(
-    `${API_URL}competition/sentence`,
-    {
-      revalidate: 0,
-    }
-  );
+  const round = await fetchClient<Round>(`${API_URL}competition/round`, {
+    revalidate: 0,
+  });
   if (!cookies().get(COOKIE_TOKEN_KEY)) {
     throw new Error("unknown user");
   }
@@ -19,8 +17,7 @@ export default async function Competition() {
   return (
     <main>
       <div>Sentence to write:</div>
-      <div className={styles.sentence}>{sentence}</div>
-      <AnswerForm sentence={sentence} />
+      <AnswerForm round={round} />
     </main>
   );
 }
