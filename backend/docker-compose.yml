@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      target: dev
+    ports:
+      - 3004:3004
+    volumes:
+      - "./src:/app/src"
+    command: "npm run dev"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=competition
+    ports:
+      - 5433:5432
+
+  mqtt:
+    image: eclipse-mosquitto
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+volumes:
+  db_data:
+  mosquitto_data:
+  mosquitto_log:
