@@ -59,7 +59,7 @@ export const AnswerForm: FC<AnswerFormProps> = ({ round }) => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    saveResult(round.roundUuid, answer);
+    saveResult(currentRound.roundUuid, answer);
   };
 
   return (

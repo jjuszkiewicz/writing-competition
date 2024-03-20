@@ -38,12 +38,12 @@ export const joinCompetition = async (state: FormState, formData: FormData) => {
   redirect("/competition");
 };
 
-export const saveResult = async (roundUUid: string, answer: string) => {
+export const saveResult = async (roundUuid: string, answer: string) => {
   await saveClient<{ token: string }>(
     "POST",
     `${API_URL}competition/answer`,
     {
-      roundUUid,
+      roundUuid,
       answer,
     }
   );

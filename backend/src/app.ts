@@ -9,7 +9,6 @@ const app = express();
 
 const auth = (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers["access-token"];
-  console.log("Check Token:", token);
   try {
     if (!token || Array.isArray(token)) {
       throw new Error("to many access-token or token is not set");

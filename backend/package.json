@@ -8,7 +8,8 @@
     "build": "tsc -p .",
     "dev": "ts-node-dev src/server.ts",
     "lint": "eslint \"src/**/*.{js,ts}\" && npx prettier --check \"src/**/*.{js,ts}\"",
-    "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix && npx prettier --write \"src/**/*.{js,ts}\""
+    "lint:fix": "eslint \"src/**/*.{js,ts}\" --fix && npx prettier --write \"src/**/*.{js,ts}\"",
+    "typeorm": "typeorm-ts-node-commonjs"
   },
   "author": "",
   "license": "ISC",
